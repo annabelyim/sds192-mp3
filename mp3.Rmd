@@ -11,7 +11,23 @@ How Challenged do you want to be?
 To be or not to be Challenged?
 
 ```{r echo = TRUE,  message = FALSE}
-
+library(tidyverse)
+library(macleish)
+library(sf)
 ```
 
+
+```{r}
+trails_data <- macleish_layers %>%
+  pluck("trails") 
+elevation_data <-macleish_layers %>%
+  pluck("contours_3m") 
+  
+trails_elevation <- macleish_layers %>%
+  pluck("trails") %>%
+  st_intersection(pluck(macleish_layers ,"contours_3m"))
+```
+
+
+Questions:
 Our problem statement for this assigment is to analyze and classify the MacLeish trails in terms of difficulity. We will figure this out based on length and elevation of each trail and categorize them as "Easy", "Moderate" or "Difficult."
