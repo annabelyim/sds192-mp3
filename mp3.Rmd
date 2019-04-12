@@ -1,0 +1,17 @@
+---
+title: "mp3"
+author: "Kiara Correa Acosta"
+date: "April 8, 2019"
+output:
+  html_document:
+    code_folding: hide
+---
+Is this Hard Enough for you?
+How Challenged do you want to be?
+To be or not to be Challenged?
+
+```{r echo = TRUE,  message = FALSE}
+
+```
+
+Our problem statement for this assigment is to analyze and classify the MacLeish trails in terms of difficulity. We will figure this out based on length and elevation of each trail and categorize them as "Easy", "Moderate" or "Difficult."
