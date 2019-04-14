@@ -17,7 +17,7 @@ library(sf)
 ```
 
 
-```{r, message = FALSE, warning = FALSE, include=FALSE, echo = TRUE}
+```{r, message = FALSE, warning = FALSE, echo = TRUE}
 trails_data <- macleish_layers %>%
   pluck("trails") %>%
   mutate(computed_length = st_length(geometry))
@@ -29,9 +29,12 @@ trails_elevation <- macleish_layers %>%
   pluck("trails") %>%
   mutate(computed_length = st_length(geometry)) %>%
   st_intersection(pluck(macleish_layers ,"contours_3m")) %>%
-  group_by(computed_length, name, color) %>%
+  group_by(name, computed_length) %>%
   summarize(elevation_gain = max(ELEV_FT) - min(ELEV_FT)) 
 
+final_trails_elevation <- trails_elevation %>%
+  group_by(name) %>%
+  summarize(total_length = sum(computed_length), total_elevationg_gain = sum(elevation_gain))
 
 ```
 
