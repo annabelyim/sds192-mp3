@@ -10,23 +10,35 @@ Is this Hard Enough for you?
 How Challenged do you want to be?
 To be or not to be Challenged?
 
-```{r echo = TRUE,  message = FALSE}
+```{r, message = FALSE, warning = FALSE, include=FALSE, echo = TRUE}
 library(tidyverse)
 library(macleish)
 library(sf)
 ```
 
 
-```{r}
+```{r, message = FALSE, warning = FALSE, include=FALSE, echo = TRUE}
 trails_data <- macleish_layers %>%
-  pluck("trails") 
+  pluck("trails") %>%
+  mutate(computed_length = st_length(geometry))
+
 elevation_data <-macleish_layers %>%
   pluck("contours_3m") 
   
 trails_elevation <- macleish_layers %>%
   pluck("trails") %>%
-  st_intersection(pluck(macleish_layers ,"contours_3m"))
+  mutate(computed_length = st_length(geometry)) %>%
+  st_intersection(pluck(macleish_layers ,"contours_3m")) %>%
+  group_by(computed_length, name, color) %>%
+  summarize(elevation_gain = max(ELEV_FT) - min(ELEV_FT)) 
+
+
 ```
+
+
+^[[Link to the GitHub Repository](https://github.com/annabelyim/sds192-mp3.git]
+
+
 
 
 Questions:
