@@ -6,9 +6,10 @@ output:
   html_document:
     code_folding: hide
 ---
-Is this Hard Enough for you?
-How Challenged do you want to be?
-To be or not to be Challenged?
+
+## To be or not to be Challenged?
+
+For this assigment, we are trying to analyze and classify the MacLeish trails in terms of difficulity. We will figure this out based on length and elevation of each trail and categorize them as "Easy", "Moderate" or "Difficult."
 
 ```{r, message = FALSE, warning = FALSE, include=FALSE, echo = TRUE}
 library(tidyverse)
@@ -34,15 +35,28 @@ trails_elevation <- macleish_layers %>%
 
 final_trails_elevation <- trails_elevation %>%
   group_by(name) %>%
-  summarize(total_length = sum(computed_length), total_elevationg_gain = sum(elevation_gain))
+  summarize(total_length = sum(computed_length), total_elevation_gain = sum(elevation_gain))
+
+trail_names <- c("Snowmobile Trail", "Eastern Loop", "Western Loop", "Poplar Hill Road", "Porcupine Trail", "Vernal Pool Loop", "entry trail")
+
+trails_difficulty <- final_trails_elevation %>%
+  group_by(name, total_elevation_gain, total_length) %>%
+  summarize(Shenandoahs_hiking_difficulty = total_elevation_gain*total_length) %>%
+  arrange(desc(Shenandoahs_hiking_difficulty)) %>%
+  filter(name %in% trail_names)
 
 ```
+trails_data is just a useful data frame created to see the trails layer of the MacLeish package. elevation_data is also a useful data frame created to see the elevation at each geometries. 
 
+The trails_elevation data frame was created to see the intersection between the trails and elevation geometries in order to see the elevation for each trails.Thus, the function st_intersection() was used find the intersections. And in order to find the elevation_gain per each trail, the trails were first grouped by their names, and the elevation_gain was summarized by taking the summarize() function by subtracting the highest(max) elevation to the lowest(min) elevtion to compute the elevation_gains. 
+
+Because trails such as the Eastern loop and Western loop were seen multiple times in the trails_elevation data frame due to the directions in which people can follow the trails, we had to find the total_length and total_elevation gain of these by grouping the trails by the names, and then summarizing the total lengths and total elevation gains. Also, because Easy Out and Driveway are not trails, we only filtered by the trails that we are interested in. 
+
+
+```{r, message = FALSE, warning = FALSE, echo = TRUE}
+wordcountaddin:::text_stats()
+```
 
 ^[[Link to the GitHub Repository](https://github.com/annabelyim/sds192-mp3.git]
 
 
-
-
-Questions:
-Our problem statement for this assigment is to analyze and classify the MacLeish trails in terms of difficulity. We will figure this out based on length and elevation of each trail and categorize them as "Easy", "Moderate" or "Difficult."
