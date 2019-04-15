@@ -1,5 +1,5 @@
 ---
-title: "mp3"
+title: "Mini-Project 3"
 author: "Kiara Correa Acosta"
 date: "April 8, 2019"
 output:
@@ -42,6 +42,7 @@ trail_names <- c("Eastern Loop", "Western Loop", "Poplar Hill Road", "Porcupine 
 trails_difficulty <- final_trails_elevation %>%
   group_by(name, total_elevation_gain, total_length) %>%
   summarize(Shenandoahs_hiking_difficulty = total_elevation_gain*total_length) %>%
+  mutate(Shenandoahs_hiking_difficulty = as.numeric(Shenandoahs_hiking_difficulty)) %>%
   arrange(desc(Shenandoahs_hiking_difficulty)) %>%
   filter(name %in% trail_names)
 
@@ -50,13 +51,13 @@ trails_data is just a useful data frame created to see the trails layer of the M
 
 The trails_elevation data frame was created to see the intersection between the trails and elevation geometries in order to see the elevation for each trails.Thus, the function st_intersection() was used find the intersections. And in order to find the elevation_gain per each trail, the trails were first grouped by their names, and the elevation_gain was summarized by taking the summarize() function by subtracting the highest(max) elevation to the lowest(min) elevtion to compute the elevation_gains. 
 
-Because trails such as the Eastern loop and Western loop were seen multiple times in the trails_elevation data frame due to the directions in which people can follow the trails, we had to find the total_length and total_elevation gain of these by grouping the trails by the names, and then summarizing the total lengths and total elevation gains. Also, because Easy Out and Driveway are not trails, we only filtered by the trails that we are interested in. Also, the Snowmobile trail is not included because they are not trails that human actually go on. 
+Because trails such as the Eastern loop and Western loop were seen multiple times in the trails_elevation data frame due to the directions in which people can follow the trails, we had to find the total_length and total_elevation gain of these by grouping the trails by the names, and then summarizing the total lengths and total elevation gains. Also, because Easy Out and Driveway are not trails, we only filtered by the trails that we are interested in. Also, the Snowmobile trail is not included because it isn't a hiking trail that humans actually go on. 
 
 
-
-
-
-
+```{r, message = FALSE, warning = FALSE, echo = TRUE}
+ggplot(trails_difficulty, aes(x = name, y = Shenandoahs_hiking_difficulty)) +
+  geom_bar( stat="identity") 
+```
 
 
 ```{r, message = FALSE, warning = FALSE, echo = TRUE}
