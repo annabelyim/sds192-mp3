@@ -1,7 +1,7 @@
 ---
 title: "Mini-Project 3"
-author: "Kiara Correa Acosta"
-date: "April 8, 2019"
+author: "Annabel Yim, Kiara Correa Acosta"
+date: "April 16, 2019"
 output:
   html_document:
     code_folding: hide
@@ -56,7 +56,7 @@ Because trails such as the Eastern loop and Western loop were seen multiple time
 
 ```{r, message = FALSE, warning = FALSE, echo = TRUE}
 ggplot(trails_difficulty, aes(x = name, y = Shenandoahs_hiking_difficulty)) +
-  geom_bar( stat="identity") 
+  geom_bar( stat="identity") + labs(x = "trail names", y = "difficulty", title = "Difficulties of Trails")
 ```
 
 
