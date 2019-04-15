@@ -56,7 +56,7 @@ Because trails such as the Eastern loop and Western loop were seen multiple time
 
 ```{r, message = FALSE, warning = FALSE, echo = TRUE}
 ggplot(trails_difficulty, aes(x = name, y = Shenandoahs_hiking_difficulty)) +
-  geom_bar( stat="identity") + labs(x = "trail names", y = "difficulty", title = "Difficulties of Trails")
+  geom_bar( stat="identity") + labs(x = "trail names", y = "difficulty (hundred thousands)", title = "Difficulties of Trails") +scale_y_continuous(breaks = c(0e+00, 1e+05, 2e+05, 3e+05), label = c("", "1", "2", "3"))
 ```
 
 
