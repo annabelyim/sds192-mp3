@@ -60,7 +60,7 @@ Thus, we created the trails_difficulty data frame that computes the difficulty n
 
 ```{r, message = FALSE, warning = FALSE, echo = TRUE}
 ggplot(trails_difficulty, aes(x = name, y = Shenandoahs_hiking_difficulty)) +
-  geom_bar( stat="identity") + labs(x = "trail names", y = "difficulty (hundred thousands)", title = "Difficulties of Trails") +scale_y_continuous(breaks = c(0e+00, 1e+05, 2e+05, 3e+05), label = c("", "1", "2", "3"))
+  geom_bar( stat="identity", color = "#008000", fill = "#008000") + labs(x = "trail names", y = "difficulty (hundred thousands)", title = "Difficulties of Trails") +scale_y_continuous(breaks = c(0e+00, 1e+05, 2e+05, 3e+05), label = c("0", "1", "2", "3")) + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
 ```
 
 Lastly, after we computed the trail difficulty rating that we had created based on the Shenandoah's difficulty rating system, we decided to draw a bar graph to compare the difficulties. When we look at the bar graph, because Eastern Loop and Western Loop had higher difficulty scales, we decided to categorize them as “Difficult.” Because Poplar Hill Road and Porcupine Trails were in the mid-range, we also decided to categorize them as “Moderate, and Entry Trail and Vernal Pool Loop as "Easy" because they have the smallest difficulty ratings. In the end, using the Existing trails shapefile and 3m contour elevation data, we were able to successfully solve our problem statement of categorizing each MacLeish trails as "Easy", "Moderate" or "Difficult."
